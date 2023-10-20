@@ -41,7 +41,7 @@ export default function CardItems({ destination, addToFavorites, favorites }) {
 
   return (
     <>
-      {favoriteCards.map((destination, index) => (
+      {data.map((destination, index) => (
         <Card key={index} sx={{ maxWidth: 345 }}>
           <CardActionArea>
             <CardMedia
