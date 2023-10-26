@@ -5,7 +5,7 @@ import ButtonAppBar from "./components/Appbar"
 import Hero from "./components/Hero"
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Button } from '@mui/material';
 
-const Cards = ({ destinations, addToFavorites, removeFromFavorites }) => {
+const Cards = ({ destinations, addToFavorites, removeFromFavorites, isFavoriteFunction }) => {
   const location = useLocation();
 
   const isFavorites = location.pathname === "/favorites";
@@ -49,9 +49,9 @@ const Cards = ({ destinations, addToFavorites, removeFromFavorites }) => {
                 console.log('Clicked Add to Favorites');
                 addToFavorites(destination.name.common || 'Country');
               }}
-              disabled={props.isFavorite(destination)}
+              disabled={isFavoriteFunction(destination)}
             >
-              {props.isFavorite(destination) ? 'Added to Favorites' : 'Add to Favorites'}
+              {isFavoriteFunction(destination) ? 'Added to Favorites' : 'Add to Favorites'}
             </Button>
 
             // <Button
@@ -97,7 +97,7 @@ function App() {
     getData();
   }, []);
 
-  const isFavorite = (destination) => {
+  const isFavoriteFunction = (destination) => {
     return favorites.some((d) => d.name.common === destination.name?.common);
   };
   
@@ -143,7 +143,7 @@ function App() {
         <Route
           path="/destinations"
           element={
-            <Cards destinations={data} isFavorite={isFavorite} favorites={favorites} removeFromFavorites={removeFromFavorites} addToFavorites={addToFavorites} />
+            <Cards destinations={data} isFavoriteFunction={isFavoriteFunction} favorites={favorites} removeFromFavorites={removeFromFavorites} addToFavorites={addToFavorites} />
           }
         />
         <Route
@@ -154,7 +154,7 @@ function App() {
               favorites={favorites}
               addToFavorites={addToFavorites}
               removeFromFavorites={removeFromFavorites}
-              isFavorite={isFavorite}
+              isFavoriteFunction={isFavoriteFunction}
             />
           }
         />
